@@ -1,0 +1,23 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Smart-Me Local – Connect Device",
+        "description": "Enter the connection details for your Smart-Me meter on the local network.",
+        "data": {
+          "host": "Device IP address or hostname",
+          "username": "Device serial number (username)",
+          "password": "Device password (default: 0000)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the Smart-Me device. Check the IP address and make sure the device is reachable.",
+      "invalid_auth": "Invalid credentials. Check the serial number and password.",
+      "unknown": "An unexpected error occurred. See the Home Assistant log for details."
+    },
+    "abort": {
+      "already_configured": "This Smart-Me device is already configured."
+    }
+  }
+}
