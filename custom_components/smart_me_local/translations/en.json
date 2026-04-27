@@ -1,0 +1,44 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Smart-Me Local – Connect Device",
+        "description": "Enter the connection details for your Smart-Me meter on the local network.",
+        "data": {
+          "host": "Device IP address or hostname",
+          "username": "Device serial number (username)",
+          "password": "Device password (default: 0000)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the Smart-Me device. Check the IP address and make sure the device is reachable.",
+      "invalid_auth": "Invalid credentials. Check the serial number and password.",
+      "unknown": "An unexpected error occurred. See the Home Assistant log for details."
+    },
+    "abort": {
+      "already_configured": "This Smart-Me device is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "active_power":            { "name": "Active Power" },
+      "active_power_l1":         { "name": "Active Power L1" },
+      "active_power_l2":         { "name": "Active Power L2" },
+      "active_power_l3":         { "name": "Active Power L3" },
+      "voltage":                 { "name": "Voltage" },
+      "voltage_l1":              { "name": "Voltage L1" },
+      "voltage_l2":              { "name": "Voltage L2" },
+      "voltage_l3":              { "name": "Voltage L3" },
+      "current":                 { "name": "Current" },
+      "current_l1":              { "name": "Current L1" },
+      "current_l2":              { "name": "Current L2" },
+      "current_l3":              { "name": "Current L3" },
+      "counter_reading":         { "name": "Energy (Total)" },
+      "counter_reading_import":  { "name": "Energy Import" },
+      "counter_reading_export":  { "name": "Energy Export" },
+      "frequency":               { "name": "Frequency" },
+      "power_factor":            { "name": "Power Factor" }
+    }
+  }
+}
