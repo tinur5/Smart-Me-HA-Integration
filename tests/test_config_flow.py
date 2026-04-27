@@ -9,6 +9,7 @@ import pytest
 from custom_components.smart_me_local.api import APIAuthError, APIConnectionError
 from custom_components.smart_me_local.config_flow import SmartMeLocalConfigFlow
 from custom_components.smart_me_local.const import DOMAIN
+from homeassistant.const import CONF_HOST
 
 from tests.conftest import DEVICE_DATA
 
@@ -25,7 +26,13 @@ def _make_flow() -> SmartMeLocalConfigFlow:
     # Stub out unique-id helpers so they don't require a real HA core
     flow.async_set_unique_id = AsyncMock()
     flow._abort_if_unique_id_configured = MagicMock()
-    flow.async_create_entry = MagicMock(return_value={"type": "create_entry", "title": "My Smart Meter", "data": {}})
+    flow.async_create_entry = MagicMock(
+        side_effect=lambda title, data: {
+            "type": "create_entry",
+            "title": title,
+            "data": data,
+        }
+    )
     flow.async_show_form = MagicMock(return_value={"type": "form"})
     flow.async_abort = MagicMock(return_value={"type": "abort"})
     return flow
@@ -65,6 +72,10 @@ class TestConfigFlowUser:
 
         flow.async_create_entry.assert_called_once()
         assert result["type"] == "create_entry"
+        # The entry title should come from the device name in the API response
+        assert result["title"] == DEVICE_DATA["Name"]
+        # The entry data should contain the host, username and password
+        assert result["data"][CONF_HOST] == USER_INPUT["host"]
 
     @pytest.mark.asyncio
     async def test_shows_invalid_auth_error(self):
